@@ -58,10 +58,9 @@ services:
         ZULIP_GIT_REF: "11.0"
         ## Set this up if you plan to use your own CA certificate bundle for building
         # CUSTOM_CA_CERTIFICATES:
-    ports:
-      - "25:25"
-      - "80:80"
-      - "443:443"
+    networks:
+      default:
+        ipv4_address: 172.18.0.100
     environment:
       ## See https://github.com/zulip/docker-zulip#configuration for
       ## details on this section and how to discover the many
@@ -69,6 +68,7 @@ services:
       DB_HOST: "database"
       DB_HOST_PORT: "5432"
       DB_USER: "zulip"
+      DISABLE_HTTPS: "True"
       SSL_CERTIFICATE_GENERATION: "self-signed"
       SETTING_MEMCACHED_LOCATION: "memcached:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
@@ -86,6 +86,9 @@ services:
       SETTING_EMAIL_HOST: "" # e.g. smtp.example.com
       SETTING_EMAIL_HOST_USER: "noreply@example.com"
       SETTING_EMAIL_PORT: "587"
+      SETTING_EXTERNAL_HOST: "zulip.duckofdoom.com"
+      SETTING_ALLOWED_HOSTS: '["duckofdoom.com", "zulip.duckofdoom.com", "internal.zulip.local"]'
+      SETTING_CSRF_TRUSTED_ORIGINS: '["https://zulip.duckofdoom.com", "https://internal.zulip.local"]'
       ## It seems that the email server needs to use ssl or tls and can't be used without it
       SETTING_EMAIL_USE_SSL: "False"
       SETTING_EMAIL_USE_TLS: "True"
@@ -100,7 +103,7 @@ services:
 
       ## If you're using a reverse proxy, you'll want to provide the
       ## comma-separated set of IP addresses to trust here.
-      # LOADBALANCER_IPS: ""
+      LOADBALANCER_IPS: "209.141.40.67,172.18.0.1/24"
 
       ## By default, files uploaded by users and profile pictures are
       ## stored directly on the Zulip server. You can configure files
@@ -128,3 +131,9 @@ volumes:
   postgresql-14:
   rabbitmq:
   redis:
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
