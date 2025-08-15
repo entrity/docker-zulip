@@ -14,7 +14,7 @@ docker-compose pull
 docker-compose up -d
 
 
-docker-compose exec -u zulip zulip cat ~zulip/deployments/current/puppet/zulip/files/nginx/dhparam.pem | sudo tee /etc/apache2/zulip-nginx/dhparam.pem
+docker-compose exec -u zulip zulip cat /home/zulip/deployments/current/puppet/zulip/files/nginx/dhparam.pem | sudo tee /etc/apache2/zulip-nginx/dhparam.pem
 
 # Don't do any of the following. Just rely on the docker-compose file
 
@@ -28,12 +28,16 @@ docker-compose exec -u zulip zulip cat /etc/zulip/zulip.conf
 
 echo -e "\n[application_server]\nhttp_only = true" | docker-compose exec -u zulip -T zulip tee -a /etc/zulip/zulip.conf
 docker-compose exec -u zulip zulip cat /etc/zulip/zulip.conf
+/home/zulip/deployments/current/scripts/zulip-puppet-apply
 # /home/zulip/deployments/current/scripts/restart-server
 # Prev cmd doesn't work. Restart docker containers
 
 
 docker-compose exec -u zulip zulip /home/zulip/deployments/current/manage.py generate_realm_creation_link
 # Click the link, generate an organization
+
+# Enable mobile push notifications (step 2. must also have enabled in docker-compose.yml)
+docker exec -it -u zulip zulip_zulip_1 /home/zulip/deployments/current/manage.py register_server
 ```
 
 ## Troubleshooting
@@ -55,3 +59,12 @@ docker-compose down
 ```
 
 **403 when creating a new organization**
+
+## Adding users
+
+Users can sign up but then have to receive an email to activate, e.g.
+https://zulip.duckofdoom.com/accounts/do_confirm/jnrhxa47yctl6ipjjc22gnt7
+
+```sql
+select email, concat('https://zulip.duckofdoom.com/accounts/do_confirm', confirmation_key) from confirmation_confirmation cc join django_content_type ct on cc.content_type_id = ct.id join zerver_preregistrationuser pu on pu.id = cc.object_id where model = 'preregistrationuser';
+```

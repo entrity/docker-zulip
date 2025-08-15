@@ -98,7 +98,7 @@ services:
       # SETTING_EMAIL_GATEWAY_PATTERN: "%s@emaildomain.example.com"
       ZULIP_AUTH_BACKENDS: "EmailAuthBackend"
       ## Uncomment this when configuring the mobile push notifications service
-      # SETTING_ZULIP_SERVICE_PUSH_NOTIFICATIONS: "True"
+      SETTING_ZULIP_SERVICE_PUSH_NOTIFICATIONS: "True"
       # SETTING_ZULIP_SERVICE_SUBMIT_USAGE_STATISTICS: "True"
 
       ## If you're using a reverse proxy, you'll want to provide the
