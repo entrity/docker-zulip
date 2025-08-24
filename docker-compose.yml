@@ -11,6 +11,9 @@ services:
       POSTGRES_PASSWORD: "REPLACE_WITH_SECURE_POSTGRES_PASSWORD"
     volumes:
       - "postgresql-14:/var/lib/postgresql/data:rw"
+    networks:
+      default:
+        ipv4_address: 172.18.0.101
   memcached:
     image: "memcached:alpine"
     restart: unless-stopped
