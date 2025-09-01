@@ -125,6 +125,9 @@ services:
       # SETTING_S3_REGION: "None"
     volumes:
       - "zulip:/data:rw"
+      - ./app.b11e523f477cf1c7b609.css:/home/zulip/prod-static/webpack-bundles/app.b11e523f477cf1c7b609.css
+      - ./app.b11e523f477cf1c7b609.css:/home/zulip/deployments/2025-07-02-20-18-16/prod-static/serve/webpack-bundles/app.b11e523f477cf1c7b609.css
+      - ./app.b11e523f477cf1c7b609.css:/home/zulip/deployments/2025-07-02-20-18-16/prod-static/serve/webpack-bundles/3942.ec4a1268b548f19a6422.js.LICENSE.txt
     ulimits:
       nofile:
         soft: 1000000
