@@ -1,6 +1,10 @@
 #!./venv/bin/python3
 '''
 Copy Psandbox posts from Rails pedestrian site to Zulip pedestrian site.
+
+Usage:
+. venv/bin/activate
+./migrate_db.py <batch_size>
 '''
 
 import sys, os
@@ -111,10 +115,19 @@ zulip_db = ZulipDbAdapter(
 
 def map_rails_user_id_to_zulip_user_id(rails_user_id):
 	return {
-		15: 10, # | lt
-		5:  8,  # | ma
-		12: 12, # | mc
-		9:  11, # | jc
+		1:9, 2:9, 3:9, 4:9, # | otto (auto-bot), created by me
+		5:  8,  # | m.a
+		6: 14, # | r.al
+		8: 19, # | m.chr
+		9:  11, # | j.cl
+		12: 12, # | m.cr
+		14: 16, # | t.ro
+		15: 10, # | l.ty
+		16: 21, # n.to
+		13: 20, # | c.pf
+		7: 17, # | r.wi
+		18: 15, # | d.th
+		19: 18, # | j.lo
 	}.get(rails_user_id, None)
 
 def copy_a_batch_of_messages_from_rails_to_zulip(starting_rails_post_id=99999, message_batch_size=1):
