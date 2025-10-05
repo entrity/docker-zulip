@@ -19,6 +19,8 @@ On vm service (stallion), set up PTR.
 
 ## Config in zulip
 
+https://zulip.readthedocs.io/en/latest/production/email.html#using-system-email
+
 Update docker-compose to specify:
 ```yaml
 SETTING_EMAIL_HOST: "172.18.0.1"

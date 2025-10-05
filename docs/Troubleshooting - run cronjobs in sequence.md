@@ -78,3 +78,7 @@ grep -rP '^\d+ 5' /etc/cron.*
 The timing looks correct because the container is running on UTC. (UTC 5 - 7 = Pacific 10 pm. And the memory issue shows up at about 22:00 Pacific when I download and review the `atop` log file on my laptop.)
 
 So I rewrote the crontab to do these 3 jobs in a series instead of in parallel.
+
+_update 2025-10-05_
+
+I found the same issue happened again at the same time a week later. Makes me think the Sunday task is the big problem. But why didn't my fix persist? All the three old cron files were right back in their places, alongside my new one. I deleted them anew, then committed the update: `docker commit zulip_zulip_1 zulip/docker-zulip:11.0-0`
