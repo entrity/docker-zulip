@@ -87,9 +87,8 @@ services:
       SETTING_ZULIP_ADMINISTRATOR: "zulip@duckofdoom.com"
       SETTING_ALLOWED_HOSTS: '["duckofdoom.com", "zulip.duckofdoom.com", "internal.zulip.local", "famchat.markhamanderson.com", "famchat.duckofdoom.com"]'
       SETTING_CSRF_TRUSTED_ORIGINS: '["https://duckofdoom.com",  "https://zulip.duckofdoom.com", "https://internal.zulip.local", "https://famchat.markhamanderson.com", "https://famchat.duckofdoom.com"]'
-      ## It seems that the email server needs to use ssl or tls and can't be used without it
-      SETTING_EMAIL_USE_SSL: "False"
-      SETTING_EMAIL_USE_TLS: "True"
+      SETTING_EMAIL_USE_SSL: "False" # Postfix is on the (local) host, so I'm not using SSL
+      SETTING_EMAIL_USE_TLS: "False" # Postfix is on the (local) host, so I'm not using SSL
       ## Uncomment to enable the incoming email gateway.  You will need to
       ## ensure that email to emaildomain.example.com is routed to this host
       ## (e.g. via MX record)
@@ -123,6 +122,7 @@ services:
       - ./app.b11e523f477cf1c7b609.css:/home/zulip/prod-static/webpack-bundles/app.b11e523f477cf1c7b609.css
       - ./app.b11e523f477cf1c7b609.css:/home/zulip/deployments/2025-07-02-20-18-16/prod-static/serve/webpack-bundles/app.b11e523f477cf1c7b609.css
       - ./app.b11e523f477cf1c7b609.css:/home/zulip/deployments/2025-07-02-20-18-16/prod-static/serve/webpack-bundles/3942.ec4a1268b548f19a6422.js.LICENSE.txt
+      - /tmp:/tmp/host-tmp:rw
     ulimits:
       nofile:
         soft: 1000000
