@@ -53,6 +53,9 @@ services:
   zulip:
     image: "zulip/docker-zulip:11.0-0"
     restart: unless-stopped
+    post_start:
+      - command: rm /etc/cron.d/update-channel-recently-active-status /etc/cron.d/delete-old-unclaimed-attachments /etc/cron.d/soft-deactivate-users
+        user: root
     build:
       context: .
       args:

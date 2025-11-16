@@ -41,6 +41,9 @@ EOF
 rm /etc/cron.d/update-channel-recently-active-status /etc/cron.d/delete-old-unclaimed-attachments /etc/cron.d/soft-deactivate-users
 ```
 
+**NB** These 3 offending cron files reappear every time the container restarts, so I guess add a `post_start` to `docker-compose.yml`.
+https://docs.docker.com/compose/how-tos/lifecycle/#post-start-hooks (requires Docker 2.3+)
+
 ## Journal
 
 I found that the CPU was being eaten up and taking down all services every so often.
