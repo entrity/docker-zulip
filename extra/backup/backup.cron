@@ -1,0 +1,8 @@
+30 2 1 * * bash /var/www/zulip/docker-zulip/extra/backup/backup.sh monthly
+10 2 * * 0 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Sunday
+10 2 * * 1 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Monday
+10 2 * * 2 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Tuesday
+10 2 * * 3 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Wednesday
+10 2 * * 4 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Thursday
+10 2 * * 5 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Friday
+10 2 * * 6 bash /var/www/zulip/docker-zulip/extra/backup/backup.sh Saturday
